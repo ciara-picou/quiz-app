@@ -182,7 +182,42 @@ function startTimer(secs, elem) {
   countDown = setTimeout("startTimer(" + secs + ',"' + elem + '")', 1000);
 }
 //make the option selection work
+option1.addEventListener("click", optionSelect);
+option2.addEventListener("click", optionSelect);
+option3.addEventListener("click", optionSelect);
+option4.addEventListener("click", optionSelect);
 
+function optionSelect(e) {
+  //get parent element and change bakgroun color
+  var parentEl = e.target.parentElement;
+  parentEl.style.backgroundColor = "#9bfb92";
+
+  //switch statement => reset other buttons to their default colors
+  switch (e.target.id) {
+    case "option1":
+      button2.style.backgroundColor = "#e0aaff";
+      button3.style.backgroundColor = "#e0aaff";
+      button4.style.backgroundColor = "#e0aaff";
+      break;
+    case "option2":
+      button1.style.backgroundColor = "#e0aaff";
+      button3.style.backgroundColor = "#e0aaff";
+      button4.style.backgroundColor = "#e0aaff";
+      break;
+    case "option3":
+      button1.style.backgroundColor = "#e0aaff";
+      button2.style.backgroundColor = "#e0aaff";
+      button4.style.backgroundColor = "#e0aaff";
+      break;
+    case "option4 ":
+      button1.style.backgroundColor = "#e0aaff";
+      button2.style.backgroundColor = "#e0aaff";
+      button3.style.backgroundColor = "#e0aaff";
+      break;
+  }
+  //set the ans value based on the option selected
+  ans = parseInt(e.target.id("option", ""), 10);
+}
 startTimer(4, "timer");
 // button1.style.backgroundColor = "#9bfb92";
 // button2.style.backgroundColor = "#d61415";
