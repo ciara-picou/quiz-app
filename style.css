@@ -1,0 +1,182 @@
+* {
+  margin: 0;
+  padding: 0;
+  /* The CSS box-sizing property allows us to include the 
+    padding and border in an element's total width and height */
+  box-sizing: border-box;
+  /* The user-select CSS property controls whether the user can select text.
+    This doesn't have any effect on content loaded as part of a browser's 
+    user interface (its chrome), except in textboxes. I've chosen to set the user-select
+    property to none so students cannot just copy and paste the quiz questions in Google; */
+  user-select: none;
+}
+
+html {
+  background-color: #e6e6e6;
+}
+
+#quiz {
+  background-color: #ffd6ff;
+  position: relative;
+  height: auto;
+  width: 900px;
+  /* we use auto to automatocally divide the margin on either side */
+  margin: 30px auto;
+  /* we use border-radius to round our edges */
+  border-radius: 40px;
+  box-shadow: 5px 7px 5px 5px rgba(0, 26, 51, 0.5);
+  padding: 2px 50px 50px 50px;
+}
+
+#h1 {
+  position: relative;
+  text-align: center;
+  font-size: 50px;
+  background-color: #e0aaff;
+  color: white;
+  border-radius: 40px;
+  margin: 30px 10px 30px 10px;
+  padding: 2px 0px;
+}
+
+#tracker {
+  position: relative;
+  margin: 20px 10px 10px 10px;
+  padding: 0 10px 0 10px;
+}
+
+.nos {
+  position: relative;
+  /* I chose inline-block because all elements with a class of .nos will 
+    maintain all the qualities of a block element,but they will be displayed side-by-side */
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-color: #e0aaff;
+  /* When you give a square div a 50% border-radius it curves its edges and makes it a circle */
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  padding: 11px;
+  margin: 0px 10px 10px 10px;
+  font-weight: bolder;
+  font-size: 22px;
+  border: 2px solid #3c096c;
+}
+
+hr {
+  border: 2px solid #3c096c;
+  position: relative;
+  /* The clear property controls the flow next to floated elements.
+  The clear property specifies what should happen with the element 
+  that is next to a floating element. */
+  clear: both;
+}
+
+#question {
+  color: #3c096c;
+  font-size: 35px;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.button {
+  position: relative;
+  background-color: #e0aaff;
+  width: 250px;
+  height: auto;
+  border: 2px solid #3c096c;
+  border-radius: 75px;
+  margin: 10px;
+  box-shadow: 2px 2px 0px 0px rgba(98.04, 50.2, 44.71, 0.5);
+}
+
+.button span {
+  text-align: center;
+  font-size: 20px;
+  padding: 10px;
+  color: #3c096c;
+  font-weight: bold;
+}
+
+.button:hover {
+  cursor: pointer;
+  box-shadow: 3px 3px 2px 2px rgba(98.04, 50.2, 44.71, 0.5);
+}
+
+#submit,
+#retake {
+  position: relative;
+  float: right;
+  background-color: #e0aaff;
+  color: white;
+  width: 230px;
+  padding: 7px;
+  border-radius: 50px;
+  font-size: 28px;
+  font-weight: 900;
+  font-family: serif;
+  margin: 5px 0px 25px 10px;
+  border: 2px solid #3c096c;
+  text-align: center;
+  box-shadow: 3px 3px 0px 0px rgba(98.04, 50.2, 44.71, 0.5);
+}
+
+.button:focus,
+#submit:focus,
+#retake:focus {
+  outline: none;
+}
+
+.options {
+  width: 550px;
+  margin-top: 50px;
+}
+
+#submit:hover,
+#retake:hover {
+  cursor: pointer;
+  background-color: #e0aaff;
+  color: #3c096c;
+  box-shadow: 3px 3px 2px 2px rgba(98.04, 50.2, 44.71, 0.5);
+}
+/* #retake:hover {
+  cursor: pointer;
+  background-color: #e0aaff;
+  color: #3c096c;
+} */
+
+footer {
+  position: relative;
+  margin: 30px;
+}
+
+#progress {
+  position: relative;
+  float: left;
+  text-align: right;
+  font-size: 30px;
+  color: #3c096c;
+}
+
+#timer {
+  position: relative;
+  float: right;
+  text-align: right;
+  font-size: 30px;
+  color: #3c096c;
+}
+
+#result {
+  text-align: center;
+  font-size: 40px;
+  color: #3c096c;
+}
+
+#resultBox {
+  display: none;
+}
+
+/* alternate palette */
+/* https://coolors.co/bee9e8-62b6cb-1b4965-cae9ff-5fa8d3 */
