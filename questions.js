@@ -6,7 +6,7 @@ var questions = [
     option2: ".pop()",
     option3: ".shift()",
     option4: ".unshift()",
-    answer: ".pop()",
+    answer: 2,
   },
   {
     question:
@@ -15,7 +15,7 @@ var questions = [
     option2: ".pop()",
     option3: ".shift()",
     option4: ".unshift()",
-    answer: ".shift()",
+    answer: 3,
   },
   {
     question:
@@ -24,7 +24,7 @@ var questions = [
     option2: ".pop()",
     option3: ".shift()",
     option4: ".unshift()",
-    answer: ".unshift()",
+    answer: 4,
   },
   {
     question: "Which array method adds an element to the end of the array?",
@@ -32,7 +32,7 @@ var questions = [
     option2: ".pop()",
     option3: ".shift()",
     option4: ".unshift()",
-    answer: ".push()",
+    answer: 1,
   },
   {
     question:
@@ -41,7 +41,7 @@ var questions = [
     option2: ".sort()",
     option3: ".reduce()",
     option4: ".map()",
-    answer: ".map()",
+    answer: 4,
   },
   {
     question:
@@ -50,7 +50,7 @@ var questions = [
     option2: ".sort()",
     option3: ".reduce()",
     option4: ".map()",
-    answer: ".reduce()",
+    answer: 3,
   },
   {
     question:
@@ -59,15 +59,15 @@ var questions = [
     option2: ".sort()",
     option3: ".reduce()",
     option4: ".map()",
-    answer: ".sort()",
+    answer: 2,
   },
   {
     question: "Which of the following array methods is non-destructive?",
     option1: ".forEach()",
     option2: ".push()",
     option3: ".splice()",
-    option4: ".sort",
-    answer: ".forEach()",
+    option4: ".sort()",
+    answer: 1,
   },
   {
     question: "Which of the following array methods is destructive?",
@@ -75,7 +75,7 @@ var questions = [
     option2: ".reduce()",
     option3: ".pop()",
     option4: ".slice()",
-    answer: ".pop()",
+    answer: 3,
   },
   {
     question:
@@ -84,6 +84,7 @@ var questions = [
     option2: ".slice()",
     option3: ".reduce()",
     option4: ".unshift()",
-    answer: ".slice()",
+    answer: 2,
   },
 ];
+
