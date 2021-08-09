@@ -143,7 +143,7 @@ function startTimer(secs, elem) {
       button3.style.backgroundColor !== "rgb(155, 251, 146)" &&
       button4.style.backgroundColor !== "rgb(155, 251, 146)"
     ) {
-      //if we are at the last question
+      //when the quiz-taker is on the last question
       if (questionCount == 9) {
         setWrong();
         setResultPage();
@@ -153,7 +153,7 @@ function startTimer(secs, elem) {
       secs = secsInput;
       getQuestion(++questionCount, randomGenerator());
     } else {
-      //They've selected an option
+      //the quiz-taker has selected an option
       if (questionCount == 9) {
         if (ans === questions[rand].answer) {
           setCorrect();
@@ -209,7 +209,7 @@ function optionSelect(e) {
       button2.style.backgroundColor = "#e0aaff";
       button4.style.backgroundColor = "#e0aaff";
       break;
-    case "option4 ":
+    case "option4":
       button1.style.backgroundColor = "#e0aaff";
       button2.style.backgroundColor = "#e0aaff";
       button3.style.backgroundColor = "#e0aaff";
@@ -218,6 +218,45 @@ function optionSelect(e) {
   //set the ans value based on the option selected
   ans = parseInt(e.target.id("option", ""), 10);
 }
-startTimer(4, "timer");
+
+//load the next question once the next question button is clicked
+submit.addEventListener("click", nextQuestion);
+
+function nextQuestion() {
+  if (
+    button1.style.backgroundColor !== "rgb(155, 251, 146)" &&
+    button2.style.backgroundColor !== "rgb(155, 251, 146)" &&
+    button3.style.backgroundColor !== "rgb(155, 251, 146)" &&
+    button4.style.backgroundColor !== "rgb(155, 251, 146)"
+  ) {
+    alert("Please select an option");
+    return;
+  } else {
+    //The clearTimeout() method clears a timer set with the setTimeout() method.
+    clearTimeout(countDown);
+    secs = secsInput;
+    //If the quiz-taker is on the last question, load the results page
+    if (questionCount == 9 && questionCount !== 10) {
+      if (ans == questions[rand].ans) {
+        setCorrect();
+      } else {
+        setWrong();
+      }
+      setResultPage();
+      return;
+    }
+    if (ans == questions[rand].ans) {
+      setCorrect();
+      getQuestion(++questionCount, randomGenerator());
+    } else {
+      setWrong();
+      getQuestion(++questionCount, randomGenerator());
+    }
+    setResultPage(); 
+    return;
+  }
+}
+
+//Retake Button
 // button1.style.backgroundColor = "#9bfb92";
 // button2.style.backgroundColor = "#d61415";
