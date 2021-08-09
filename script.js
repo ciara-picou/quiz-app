@@ -1,42 +1,44 @@
-let questionCount = 0;
-let score = 0;
-let ans;
-let timedOut = 0;
-let rand;
-let record = [];
-let status = 0;
+//Set and initialize variables
+
+var questionCount = 0;
+var score = 0;
+var ans;
+var timedOut = 0;
+var rand;
+var record = [];
+var status = 0;
 
 function $(id) {
   return document.getElementById(id);
 }
-let quiz = $("quiz");
-let quizSet = $("quizSet");
-let resultBox = $("resultBox");
-let question = $("question");
-let option1 = $("option1");
-let option2 = $("option2");
-let option3 = $("option3");
-let option4 = $("option4");
-let submit = $("submit");
-let progress = $("progress");
-let result = $("result");
-let retake = $("retake");
-let button1 = $("btn1");
-let button2 = $("btn2");
-let button3 = $("btn3");
-let button4 = $("btn4");
+
+var quiz = $("quiz");
+var quizSet = $("quizSet");
+var resultBox = $("resultBox");
+var question = $("question");
+var option1 = $("option1");
+var option2 = $("option2");
+var option3 = $("option3");
+var option4 = $("option4");
+var submit = $("submit");
+var progress = $("progress");
+var result = $("result");
+var retake = $("retake");
+var button1 = $("btn1");
+var button2 = $("btn2");
+var button3 = $("btn3");
+var button4 = $("btn4");
 
 var tracker;
 var countDown;
-var secsInput = 5;
+var secsInput = 60;
 var seconds = secsInput;
 var t;
 
-//load the question into the app
-
-//set the question
+// Load current question into the app
+//Set the question
 function setQuestion(qCount, rand) {
-  let ques = questions[rand];
+  var ques = questions[rand];
   question.textContent = qCount + 1 + ". " + ques.question;
   option1.textContent = ques.option1;
   option2.textContent = ques.option2;
@@ -44,33 +46,30 @@ function setQuestion(qCount, rand) {
   option4.textContent = ques.option4;
 }
 
-//adjust the progress bar
 function changeProgressBar(qCount) {
-  progress.textContent = `Question ${qCount + 1} of 10 `;
+  progress.innerHTML = "Question " + (qCount + 1) + " of 10";
   tracker = $("no" + (qCount + 1));
-  tracker.style.backgroundColor = "#a06cd5";
+  tracker.style.backgroundColor = "#8900f2";
 }
-
-//reset the option button's text and background to the original color scheme
 
 function defaultOptionColors() {
   button1.style.backgroundColor = "#e0aaff";
   button2.style.backgroundColor = "#e0aaff";
   button3.style.backgroundColor = "#e0aaff";
   button4.style.backgroundColor = "#e0aaff";
-  option1.style.color = "#3c096c";
-  option2.style.color = "#3c096c";
-  option3.style.color = "#3c096c";
-  option4.style.color = "#3c096c";
 }
 
 function getQuestion(qCount, rand) {
   if (qCount == 9) {
-    submit.textContent = "Submit Quiz";
+    //final question edge case
+    submit.innerHTML = "Submit Test";
+    submit.style.backgroundColor = "#00b300";
   }
+
   if (qCount > 9) {
     return;
   }
+
   setQuestion(qCount, rand);
   changeProgressBar(qCount);
   defaultOptionColors();
@@ -78,43 +77,44 @@ function getQuestion(qCount, rand) {
   startTimer(seconds, "timer");
 }
 
-//change the tracker's color in response to correct / incorrect answers
+//set result
 function setCorrect() {
   score++;
-  tracker.style.backgroundColor = "#9bfb92";
+  tracker.style.backgroundColor = "#009900";
 }
 
 function setWrong() {
-  tracker.style.backgroundColor = "#d61415";
+  tracker.style.backgroundColor = "#ce2d4f";
 }
-
+//display final score
 function finalScore() {
   if (score > 7) {
-    result.textContent = ` 🎉 You scored ${score * 10}% 🎉 `;
+    result.innerHTML = ` 🎉 You scored ${score * 10}% 🎉 `;
   } else if (score > 5) {
-    result.textContent = `You scored ${score * 10}%`;
+    result.innerHTML = `You scored ${score * 10}%`;
   } else {
-    result.textContent = `🤓 Practice makes perfect. Try again 🤓`;
+    result.innerHTML = `🤓 Practice makes perfect. Please try again 🤓`;
   }
 }
-
+//when the quiz is completed
 function setResultPage() {
   quizSet.style.display = "none";
   resultBox.style.display = "block";
-  progress.textContent = "Quiz Completed";
+  progress.innerHTML = "Quiz Completed";
   timer.textContent = "00:00";
   finalScore();
 }
 
-//select a quiz question at random
+//Generate random unused index
 function randomGenerator() {
-  while (status === 0) {
+  while (status == 0) {
     rand = Math.round(Math.random() * questions.length);
     if (rand !== questions.length) {
-      for (let j = 0; j < record.length; j++) {
+      //run through record array to find if its unique
+      for (var j = 0; j < record.length; j++) {
         if (rand === record[j]) {
           break;
-        } else if (j === record.length - 1) {
+        } else if (j == record.length - 1) {
           record[questionCount] = rand;
           status = 1;
         }
@@ -122,28 +122,29 @@ function randomGenerator() {
     }
   }
   status = 0;
+
   return rand;
 }
+
 //Timer function
 function startTimer(secs, elem) {
   t = $(elem);
   t.innerHTML = "00:" + secs;
 
   if (secs < 0) {
+    //The clearTimeout() method clears a timer set with the setTimeout() method.
     clearTimeout(countDown);
     //call the next question or set the result page
-
-    //no option selected - wrong
-
-    //button1.style.backgroundColor will return an rgb value even if you set it with a hexadecimal value in the css file
-    //when comparing be sure to use an rgb value or you could get a false return value when you are expecting true
+    //no option selected
     if (
-      button1.style.backgroundColor !== "rgb(155, 251, 146)" &&
-      button2.style.backgroundColor !== "rgb(155, 251, 146)" &&
-      button3.style.backgroundColor !== "rgb(155, 251, 146)" &&
-      button4.style.backgroundColor !== "rgb(155, 251, 146)"
+      //button1.style.backgroundColor will return an rgb value even if you set it with a hexadecimal value in the css file
+      //when comparing be sure to use an rgb value or you could get a false return value when you are expecting true
+      button1.style.backgroundColor !== "rgb(26, 255, 26)" &&
+      button2.style.backgroundColor !== "rgb(26, 255, 26)" &&
+      button3.style.backgroundColor !== "rgb(26, 255, 26)" &&
+      button4.style.backgroundColor !== "rgb(26, 255, 26)"
     ) {
-      //when the quiz-taker is on the last question
+      //final question edge case
       if (questionCount == 9) {
         setWrong();
         setResultPage();
@@ -153,22 +154,28 @@ function startTimer(secs, elem) {
       secs = secsInput;
       getQuestion(++questionCount, randomGenerator());
     } else {
-      //the quiz-taker has selected an option
+      //an option has been selected
+      //final question edge case
       if (questionCount == 9) {
         if (ans === questions[rand].answer) {
+          // the selected option is correct
           setCorrect();
         } else {
+          //the selected option is incorrect
           setWrong();
         }
         setResultPage();
         return;
       }
-
+      //an option has been selected
+      //there are still more questions ahead
       if (ans == questions[rand].answer) {
+        // the selected option is correct
         setCorrect();
         secs = secsInput;
         getQuestion(++questionCount, randomGenerator());
       } else {
+        //the selected option is incorrect
         setWrong();
         secs = secsInput;
         getQuestion(++questionCount, randomGenerator());
@@ -181,18 +188,19 @@ function startTimer(secs, elem) {
   //recurring function
   countDown = setTimeout("startTimer(" + secs + ',"' + elem + '")', 1000);
 }
-//make the option selection work
+
+//option selection functionality
 option1.addEventListener("click", optionSelect);
 option2.addEventListener("click", optionSelect);
 option3.addEventListener("click", optionSelect);
 option4.addEventListener("click", optionSelect);
 
 function optionSelect(e) {
-  //get parent element and change bakgroun color
+  //get parent element and change background color
   var parentEl = e.target.parentElement;
-  parentEl.style.backgroundColor = "#9bfb92";
+  parentEl.style.backgroundColor = "#1aff1a";
 
-  //switch statement => reset other buttons to their default colors
+  //switch statement => resets the selected button's color from green back to its default color
   switch (e.target.id) {
     case "option1":
       button2.style.backgroundColor = "#e0aaff";
@@ -215,29 +223,31 @@ function optionSelect(e) {
       button3.style.backgroundColor = "#e0aaff";
       break;
   }
-  //set the ans value based on the option selected
-  ans = parseInt(e.target.id("option", ""), 10);
+
+  //set ans value based on the option selected
+  ans = parseInt(e.target.id.replace("option", ""), 10);
 }
 
-//load the next question once the next question button is clicked
+//Load the next question once the next question button is clicked
 submit.addEventListener("click", nextQuestion);
 
 function nextQuestion() {
+  //no option selected edge case
   if (
-    button1.style.backgroundColor !== "rgb(155, 251, 146)" &&
-    button2.style.backgroundColor !== "rgb(155, 251, 146)" &&
-    button3.style.backgroundColor !== "rgb(155, 251, 146)" &&
-    button4.style.backgroundColor !== "rgb(155, 251, 146)"
+    button1.style.backgroundColor !== "rgb(26, 255, 26)" &&
+    button2.style.backgroundColor !== "rgb(26, 255, 26)" &&
+    button3.style.backgroundColor !== "rgb(26, 255, 26)" &&
+    button4.style.backgroundColor !== "rgb(26, 255, 26)"
   ) {
     alert("Please select an option");
     return;
   } else {
-    //The clearTimeout() method clears a timer set with the setTimeout() method.
     clearTimeout(countDown);
     secs = secsInput;
-    //If the quiz-taker is on the last question, load the results page
-    if (questionCount == 9 && questionCount !== 10) {
-      if (ans == questions[rand].ans) {
+
+    //final question edge case - load result page
+    if (questionCount == 9 && questionCount != 10) {
+      if (ans == questions[rand].answer) {
         setCorrect();
       } else {
         setWrong();
@@ -245,18 +255,41 @@ function nextQuestion() {
       setResultPage();
       return;
     }
-    if (ans == questions[rand].ans) {
+
+    if (ans == questions[rand].answer) {
       setCorrect();
       getQuestion(++questionCount, randomGenerator());
     } else {
       setWrong();
       getQuestion(++questionCount, randomGenerator());
     }
-    setResultPage(); 
-    return;
   }
 }
 
-//Retake Button
-// button1.style.backgroundColor = "#9bfb92";
-// button2.style.backgroundColor = "#d61415";
+//Retake button
+retake.addEventListener("click", retakeTest);
+
+function retakeTest() {
+  //The reload() method is used to reload the current document.
+  //The reload() method does the same as the reload button in your browser.
+  window.location.reload();
+}
+
+//Initial setup
+//get the first random question to kick the quiz off
+rand = Math.round(Math.random() * questions.length);
+//edge case when rand equals questions.length
+//given that indices begin at 0 we will only have questions.length - 1 indices to choose from
+//if rand == questions.length questions[rand] will be undefined
+while (rand == questions.length) {
+  rand = Math.round(Math.random() * questions.length);
+}
+
+record[0] = rand;
+
+//onload function
+//onload ...when the window is loaded
+//The load event is fired when the whole page has loaded, including all dependent resources such as stylesheets
+// and images. This is in contrast to DOMContentLoaded, which is fired as soon as the
+//page DOM has been loaded, without waiting for resources to finish loading.
+window.onload = getQuestion(questionCount, rand);
